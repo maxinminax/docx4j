@@ -21,6 +21,7 @@
 package org.pptx4j.samples;
 
 
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -43,11 +44,14 @@ public class RenderAsSvgInHtml  {
 
 	public static void main(String[] args) throws Exception {
 	
-		String inputfilepath = System.getProperty("user.dir") + "/sample-docs/pptx/pptx-basic.xml";
+//		String inputfilepath = System.getProperty("user.dir") + "/sample-docs/pptx/pptx-basic.xml";
 //		String inputfilepath = System.getProperty("user.dir") + "/sample-docs/pptx/lines.pptx";
+		String inputfilepath = System.getProperty("user.dir") + "/sample-docs/pptx/report.pptx";
 
     	// Where to save images
-    	SvgExporter.setImageDirPath(System.getProperty("user.dir") + "/sample-docs/pptx/");
+    	SvgExporter.setImageDirPath(System.getProperty("user.dir") + "/sample-docs/pptx/report/");
+    	
+    	PrintWriter writer = new PrintWriter(System.getProperty("user.dir") + "/sample-docs/pptx/report/report.xhtml", "UTF-8");
 		
 		PresentationMLPackage presentationMLPackage = 
 			(PresentationMLPackage)PresentationMLPackage.load(new java.io.File(inputfilepath));		
@@ -64,6 +68,7 @@ public class RenderAsSvgInHtml  {
 	        	System.out.println(
 	        			SvgExporter.svg(presentationMLPackage, (SlidePart)p)
 	        			);
+	        	writer.println(SvgExporter.svg(presentationMLPackage, (SlidePart)p));
 	        }
 	    }
 		
